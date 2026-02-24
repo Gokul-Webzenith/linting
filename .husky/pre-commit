@@ -1,11 +1,11 @@
-#!/bin/sh
+
 
 echo "🔍 Running Ultracite..."
-cd my-app || exit 1
+cd my-app 
 pnpm ultracite fix
 
 echo "🎨 Running Biome..."
-pnpm biome check --write
+pnpm biome check . --write
 
 cd ..
 git add --update
