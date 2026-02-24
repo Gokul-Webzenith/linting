@@ -1,0 +1,7 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+pnpm ultracite fix
+pnpm biome check --write
+
+git add --update
