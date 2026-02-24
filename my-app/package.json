@@ -19,7 +19,7 @@
     "fix": "ultracite fix",
     "prepare": "husky"
   },
-    "lint-staged": {
+  "lint-staged": {
     "*.{ts,tsx,js,jsx,json,md}": [
       "biome check --write",
       "ultracite check"
