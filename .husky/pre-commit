@@ -1,5 +1,9 @@
+#!/bin/sh
 
-pnpm ultracite fix
-pnpm biome check --write
+echo "🔍 Running Ultracite..."
+pnpm --prefix my-app ultracite fix
+
+echo "🎨 Running Biome..."
+pnpm --prefix my-app biome check --write
 
 git add --update
