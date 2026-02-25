@@ -114,8 +114,9 @@ export default function WorkPage() {
 		},
 	});
 	const deleteMutation = todoApi.useMutation("delete", "/api/{id}", {
-		onSuccess: () => {
-			queryClient.invalidateQueries({
+		onSuccess: async () => {
+			// Force refetch and WAIT
+			await queryClient.refetchQueries({
 				queryKey: ["get", "/api"],
 			});
 		},
@@ -253,6 +254,7 @@ export default function WorkPage() {
 		return (
 			<div
 				className={`mb-3 cursor-pointer rounded-xl border p-4 shadow hover:shadow-md ${getRemainingClass(item.endAt, item.status)}`}
+				data-testid="todo-card"
 				draggable
 				onClick={() => openDesc(item)}
 				onDragStart={(e) => onDragStart(e, item.id)}
@@ -273,6 +275,7 @@ export default function WorkPage() {
 				<div className="mt-3 flex gap-2" onClick={(e) => e.stopPropagation()}>
 					<Button
 						className="bg-blue-500 text-white"
+						data-testid="edit-todo-btn"
 						onClick={() => {
 							setEditTodo(item);
 							openSheet();
@@ -295,6 +298,7 @@ export default function WorkPage() {
 
 					<Button
 						className="bg-red-500 text-white"
+						data-testid="delete-btn"
 						onClick={() => openConfirm("delete", item.id)}
 						size="sm"
 					>
@@ -351,7 +355,6 @@ export default function WorkPage() {
 								)}
 							</div>
 
-							{/* DESCRIPTION */}
 							<div className="space-y-1">
 								<Label>Description</Label>
 
@@ -408,7 +411,6 @@ export default function WorkPage() {
 												if (date) {
 													setValue("startDate", format(date, "yyyy-MM-dd"));
 
-													// Clear end date if invalid
 													const end = watch("endDate");
 													if (
 														end &&

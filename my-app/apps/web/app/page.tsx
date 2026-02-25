@@ -80,10 +80,12 @@ export default function AuthPage() {
 				return;
 			}
 
-			// Signup success (204 is OK)
 			setMessage("Signup successful. Please login.");
-			toggleMode();
-			reset();
+
+			setTimeout(() => {
+				toggleMode();
+				reset();
+			}, 1500); // show message for 1.5s
 		} catch (err: unknown) {
 			console.error("AUTH ERROR:", err);
 			setMessage(err?.message || "Authentication failed");
@@ -181,8 +183,6 @@ export default function AuthPage() {
 						{message && (
 							<p className="text-center text-destructive text-sm">{message}</p>
 						)}
-
-						{/* ✅ SUBMIT */}
 						<Button className="w-full" disabled={isSubmitting} type="submit">
 							{isSubmitting
 								? "Loading..."

@@ -27,6 +27,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.0",
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.3.0",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "drizzle-kit": "0.30.6",
