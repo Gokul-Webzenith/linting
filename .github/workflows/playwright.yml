@@ -21,12 +21,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      # ✅ Create backend .env file from GitHub Secrets
-      - name: Create backend .env
+      # ✅ Build monorepo packages (VERY IMPORTANT)
+      - name: Build workspace packages
+        run: pnpm build
+
+      # ✅ Create root .env
+      - name: Create root .env
         run: |
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >>.env
-          echo "BETTER_AUTH_SECRET=${{ secrets.BETTER_AUTH_SECRET }}" >>.env
-          echo "APP_URL=${{ secrets.APP_URL }}" >>.env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "BETTER_AUTH_SECRET=${{ secrets.BETTER_AUTH_SECRET }}" >> .env
+          echo "APP_URL=${{ secrets.APP_URL }}" >> .env
 
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
