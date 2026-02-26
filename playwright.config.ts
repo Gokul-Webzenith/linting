@@ -22,9 +22,16 @@ export default defineConfig({
 		},
 	],
 
-	webServer: {
-		command: "pnpm dev", // command that starts frontend (change if needed)
-		url: "http://localhost:3001",
-		reuseExistingServer: !process.env.CI,
-	},
+	webServer: [
+		{
+			command: "pnpm --filter server dev",
+			port: 3000,
+			reuseExistingServer: !process.env.CI,
+		},
+		{
+			command: "pnpm --filter web dev",
+			port: 3001,
+			reuseExistingServer: !process.env.CI,
+		},
+	],
 });
