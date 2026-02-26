@@ -16,11 +16,17 @@ jobs:
         with:
           node-version: 20
 
-      # ✅ Let pnpm action auto-detect version from package.json
       - uses: pnpm/action-setup@v4
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
+
+      # ✅ Create backend .env file from GitHub Secrets
+      - name: Create backend .env
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> packages/server/.env
+          echo "BETTER_AUTH_SECRET=${{ secrets.BETTER_AUTH_SECRET }}" >> packages/server/.env
+          echo "APP_URL=${{ secrets.APP_URL }}" >> packages/server/.env
 
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
